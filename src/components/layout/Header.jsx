@@ -43,16 +43,18 @@ export function Header({ user, onLogout }) {
           ShopNova
         </Link>
         <nav className="header-nav" style={{ gap: '1rem' }}>
-          <Link 
-            to="/exchange" 
-            className="wishlist-link" 
-            title="환율 및 통화 설정" 
-            style={{ color: 'var(--text-primary)', display: 'flex', alignItems: 'center', position: 'relative', textDecoration: 'none' }}
-          >
-            <div className="currency-badge-icon">
-              {currency.code}
-            </div>
-          </Link>
+          {user && (
+            <Link 
+              to="/exchange" 
+              className="wishlist-link" 
+              title="환율 및 통화 설정" 
+              style={{ color: 'var(--text-primary)', display: 'flex', alignItems: 'center', position: 'relative', textDecoration: 'none' }}
+            >
+              <div className="currency-badge-icon">
+                {currency.code}
+              </div>
+            </Link>
+          )}
           {user ? (
             <div className="user-menu">
               <a 

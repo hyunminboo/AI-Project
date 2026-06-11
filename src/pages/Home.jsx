@@ -27,6 +27,22 @@ export function Home() {
   const [hasMore, setHasMore] = useState(false);
   const [currentSort, setCurrentSort] = useState('sim'); // 'sim', 'asc', 'dsc'
 
+  const handleReset = () => {
+    setItems([]);
+    setError(null);
+    setHasSearched(false);
+    setCurrentQuery('');
+    setCurrentStart(1);
+    setHasMore(false);
+    setActiveCategory(null);
+  };
+
+  // 헤더 로고 클릭 시 초기화
+  useEffect(() => {
+    window.addEventListener('resetHome', handleReset);
+    return () => window.removeEventListener('resetHome', handleReset);
+  }, []);
+
   const handleSearch = async (query) => {
     if (!query.trim()) return;
     setIsLoading(true);

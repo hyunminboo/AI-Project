@@ -34,7 +34,12 @@ export function Header({ user, onLogout }) {
   return (
     <header className="global-header glass">
       <div className="header-content">
-        <Link to="/" className="logo" style={{ textDecoration: 'none' }}>
+        <Link 
+          to="/" 
+          className="logo" 
+          style={{ textDecoration: 'none' }}
+          onClick={() => window.dispatchEvent(new Event('resetHome'))}
+        >
           ShopNova
         </Link>
         <nav className="header-nav" style={{ gap: '1rem' }}>

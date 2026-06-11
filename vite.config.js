@@ -13,12 +13,17 @@ export default defineConfig({
   server: {
     port: 5173,
     proxy: {
-      // 네이버 쇼핑 검색 API CORS 우회
-      // 브라우저 → /api/naver/... → openapi.naver.com/...
-      '/api/naver': {
+      // 로컬 개발 시 CORS 우회: /api/search → 네이버 API
+      '/api/search': {
         target: 'https://openapi.naver.com',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api\/naver/, ''),
+        rewrite: (path) => path.replace(/^\/api\/search/, '/v1/search/shop.json'),
+        configure: (proxy) => {
+          proxy.on('proxyReq', (proxyReq) => {
+            proxyReq.setHeader('X-Naver-Client-Id', process.env.VITE_NAVER_CLIENT_ID || '');
+            proxyReq.setHeader('X-Naver-Client-Secret', process.env.VITE_NAVER_CLIENT_SECRET || '');
+          });
+        },
         secure: true,
       },
     },
